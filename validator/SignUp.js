@@ -1,6 +1,6 @@
 const validator = require("validator");
 const isEmpty = require("./Empty");
-const Regex=/^(?=.*\d)(?=.*[a-z])(?=.*[@$!%?&])(?=.*[A-Z]).{8,}/;
+const Regex=/^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=])(?=.*[A-Z]).{8,}/;
 const Regex1=/(?=.*[ ])/;
 module.exports = function SignupValidation(data) {
 

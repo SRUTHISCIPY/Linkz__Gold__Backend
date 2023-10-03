@@ -1,8 +1,7 @@
 const express=require('express');
-const mongoose=require('mongoose');
-
+const dotenv = require('dotenv');
 const app= express();
-const port=2000;
+const connect = require('./mongodb/config');
 const bodyParser = require('body-parser')
 const UserRouter=require('./routers/UserRouter')
 const ProductRouter=require('./routers/Productrouter')
@@ -13,6 +12,11 @@ const DigitalGoldRouter=require('./routers/DigitalGold')
 const PurchaseJewelleryRouter=require('./routers/PurchaseJewellery')
 const signupValidation=require('./validator/SignUp')
 app.use(bodyParser.json())
+dotenv.config();
+
+const PORT = process.env.PORT;
+
+connect();
 
 app.use('/user',UserRouter)
 app.use('/product',ProductRouter)
@@ -21,21 +25,15 @@ app.use('/Purchasegoldcoin',PurchaseGoldCoinRouter)
 app.use('/Goldcoin',GoldCoinRouter)
 app.use('/Digitalgold',DigitalGoldRouter)
 app.use('/purchasejewellery',PurchaseJewelleryRouter)
-app.listen(port,()=>{
-    console.log(`app listening to port ${port}`)
-})
+app.listen(PORT, () => { console.log(`Server started at ${PORT}`) })
 
-const data ={
+// const data ={
    
-    firstName :"Sruthi",
-    lastName :"s",
-    email :"sruthi123@gmail.com",
-    password:"Esrr343@444"
-}
+//     firstName :"Sruthi",
+//     lastName :"s",
+//     email :"sruthi123@gmail.com",
+//     password:"Esrr343@444"
+// }
 
-console.log(signupValidation(data))
+// console.log(signupValidation(data))
 
-mongoose.connect(`mongodb+srv://sCIPYTECH71:scipytechnologies71@cluster0.7tlwqki.mongodb.net/?retryWrites=true&w=majority`,{
-})
-.then(()=>console.log("mongoose connected"))
-.catch((err)=>console.log("err"))
