@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
 // Load User model
 const User = require("../models/UserSchema");
 // Load input validation
@@ -28,7 +29,7 @@ module.exports = {
               firstName,
               lastName,
               email,
-              password: hashedpassword
+              password: hashedpassword,
             });
             res.status(201).json({ message: "user added with success"});
           }
@@ -60,10 +61,11 @@ module.exports = {
             res.status(404).json(errors);
           } else {
             // generating a token and storing it in a cookie
-            const token = jwt.sign({ _id: user._id , role: user.role}, "successful", {
+            const token = jwt.sign({ _id: user._id , role: user.role}, "sooraj_DOING_GOOD", {
               expiresIn: "8h",
             });
-        
+            
+
             const data ={
                id : user._id
             }
@@ -86,7 +88,7 @@ module.exports = {
   verifyToken : async(req,res) =>{
     try{
       const token = req.body.token ;
-      const decoded = jwt.verify(token,"success")
+      const decoded = jwt.verify(token,"sooraj_DOING_GOOD")
       res.status(200).json(decoded)
 
     }catch(error) {
@@ -99,14 +101,13 @@ module.exports = {
 
    getUser : async(req,res) => {
     const id = req.params.id;
-    console.log(id,"id generated");
+    console.log(id,"id vanno");
     try {
       const userdata = await User.findById(id);
        const data = {
         firstName : userdata.firstName,
         LastName : userdata.lastName,
         email : userdata.email,
-        courseReg : userdata.courseReg
        }
       res.status(200).json(data)
 
